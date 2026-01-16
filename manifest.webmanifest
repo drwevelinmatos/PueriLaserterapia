@@ -1,0 +1,22 @@
+{
+  "name": "Laserterapia - Dr. Wevelin",
+  "short_name": "Laserterapia",
+  "start_url": "./laserterapia_app.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "rgb(40,90,129)",
+  "description": "Protocolos de laserterapia com busca rápida e cálculo de tempo por ponto.",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -1,0 +1,800 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Laserterapia - Dr. Wevelin</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Comfortaa:400,700&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* ====== SUA IDENTIDADE VISUAL ====== */
+    :root{
+      --brand: rgb(40,90,129);
+      --brand-light: rgb(185,224,229);
+      --text: #2c3e50;
+      --bg: rgb(255,255,255);
+      --border: #ccc;
+      --shadow: 0 2px 4px rgba(40,90,129,0.10);
+      --radius: 7px;
+    }
+
+    /* ====== Fonte local (Gotham Book) ======
+       Coloque "Gotham Book.otf" na mesma pasta do HTML */
+    @font-face{
+      font-family: "Gotham Book";
+      src: url("Gotham%20Book.otf") format("opentype");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    body{
+      font-family: 'Gotham Book', 'Comfortaa', Arial, sans-serif;
+      padding: 20px;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+    }
+
+    header{ text-align:center; margin-bottom: 18px; }
+    header img{ max-width: 110px; display:block; margin: 0 auto 10px auto; }
+
+    h1,h2,h3{
+      color: var(--brand);
+      font-family: 'Comfortaa', Arial, sans-serif;
+      text-align: center;
+      margin-bottom: 12px;
+      margin-top: 0;
+    }
+
+    .sub{
+      font-family: 'Comfortaa', Arial, sans-serif;
+      color:#555;
+      font-size:12px;
+      text-align:center;
+      margin-top:-4px;
+      margin-bottom: 14px;
+    }
+
+    label{
+      font-family: 'Gotham Book', Arial, sans-serif;
+      font-weight: bold;
+      display:block;
+      margin-top: 15px;
+      color: var(--brand);
+    }
+
+    input, select{
+      font-family: 'Gotham Book', 'Comfortaa', Arial, sans-serif;
+      padding: 10px;
+      width:100%;
+      margin-top: 5px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      box-sizing:border-box;
+      background: var(--brand-light);
+      color: var(--text);
+      outline:none;
+    }
+
+    button{
+      margin-top: 16px;
+      padding: 12px;
+      width: 100%;
+      background: var(--brand);
+      color: white;
+      font-size: 16px;
+      font-family:'Comfortaa', Arial, sans-serif;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+    }
+
+    button:hover{
+      background: var(--brand-light);
+      color: var(--brand);
+    }
+
+    /* ====== Layout do app ====== */
+    .toolbar{
+      max-width:1100px;
+      margin: 0 auto 10px auto;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:10px;
+    }
+
+    @media (min-width: 860px){
+      .toolbar{
+        grid-template-columns: 1fr 220px 260px;
+        align-items:end;
+      }
+    }
+
+    .chips{
+      max-width:1100px;
+      margin: 0 auto;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:center;
+      margin-top: 6px;
+    }
+
+    .chip{
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      cursor:pointer;
+      user-select:none;
+      background:#fff;
+      color: var(--brand);
+      font-family:'Comfortaa', Arial, sans-serif;
+      font-size: 12px;
+      box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    }
+
+    .chip.active{
+      background: var(--brand);
+      color:#fff;
+      border-color: var(--brand);
+    }
+
+    .wrap{
+      max-width:1100px;
+      margin: 16px auto 0 auto;
+    }
+
+    .stats{
+      margin: 12px auto 14px auto;
+      max-width:1100px;
+      font-size:12px;
+      color:#555;
+      text-align:center;
+      font-family:'Comfortaa', Arial, sans-serif;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:12px;
+    }
+
+    @media (min-width: 900px){
+      .grid{ grid-template-columns: 1fr 1fr; }
+    }
+
+    .card{
+      background:#fff;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3{
+      margin: 0 0 8px 0;
+      font-size: 14px;
+      text-align:left;
+      color: var(--brand);
+      font-family:'Comfortaa', Arial, sans-serif;
+    }
+
+    .badges{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-bottom: 10px;
+    }
+
+    .badge{
+      font-size: 11px;
+      border: 1px solid var(--border);
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: var(--brand-light);
+      color: var(--brand);
+      font-family:'Comfortaa', Arial, sans-serif;
+    }
+
+    details{
+      margin-top: 10px;
+      border-top: 1px solid var(--border);
+      padding-top: 10px;
+    }
+
+    summary{
+      cursor:pointer;
+      font-family:'Comfortaa', Arial, sans-serif;
+      color: var(--brand);
+      font-weight: 700;
+      list-style:none;
+    }
+    summary::-webkit-details-marker{ display:none; }
+
+    ul{
+      margin: 10px 0 0 0;
+      padding-left: 18px;
+      font-size: 13px;
+      white-space: normal;
+    }
+    li{ margin: 6px 0; }
+
+    .resultado{
+      margin-top: 12px;
+      padding: 15px 10px;
+      background:#fff;
+      border-radius: 7px;
+      border: 1px solid var(--border);
+      font-family:'Gotham Book','Comfortaa', Arial, sans-serif;
+      white-space: pre-line;
+    }
+
+    .destaque{
+      font-weight:bold;
+      color: var(--brand);
+      font-family:'Comfortaa', Arial, sans-serif;
+      margin-bottom: 6px;
+    }
+
+    .row2{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    @media (min-width: 860px){
+      .row2{ grid-template-columns: 1fr 1fr; }
+    }
+
+    .inlineBtnRow{
+      display:flex;
+      gap:10px;
+      margin-top: 10px;
+      flex-wrap:wrap;
+    }
+    .inlineBtnRow button{
+      width:auto;
+      margin-top:0;
+      padding: 10px 12px;
+      font-size: 13px;
+    }
+
+    .btnGhost{
+      background:#fff;
+      color: var(--brand);
+      border: 1px solid var(--brand);
+      box-shadow:none;
+    }
+    .btnGhost:hover{
+      background: var(--brand-light);
+      color: var(--brand);
+    }
+
+    /* Modal */
+    .modalBack{
+      position:fixed;
+      inset:0;
+      background: rgba(0,0,0,.35);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-index:999;
+    }
+    .modal{
+      width: min(900px, 100%);
+      background:#fff;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding:14px;
+    }
+    .modalHeader{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .modalHeader h3{
+      margin:0;
+      text-align:left;
+      flex:1;
+    }
+
+    footer{
+      margin-top: 40px;
+      font-size: 12px;
+      text-align: center;
+      color:#555;
+      border-top: 1px solid var(--border);
+      padding-top: 15px;
+      font-family:'Comfortaa', Arial, sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <!-- Seu logo (coloque logo_azul.png na mesma pasta) -->
+    <img src="logo_azul.png" alt="Dr. Wevelin Matos" />
+    <h1>Laserterapia • Protocolos</h1>
+    <div class="sub">Busca rápida + cálculo de tempo por ponto (potência em mW) + ILIB</div>
+  </header>
+
+  <div class="toolbar">
+    <div>
+      <label for="search">Buscar protocolo</label>
+      <input id="search" type="search" placeholder="Ex.: fissura, mastite, otite, PDT, ILIB, bronquiolite..." />
+    </div>
+
+    <div>
+      <label for="powerMw">Potência do laser (mW)</label>
+      <input id="powerMw" type="number" inputmode="decimal" min="1" value="100" />
+    </div>
+
+    <div>
+      <button id="openCalc">Calculadoras rápidas</button>
+      <div class="inlineBtnRow">
+        <button class="btnGhost" id="expandAll">Abrir todos</button>
+        <button class="btnGhost" id="collapseAll">Fechar todos</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="chips" id="chips">
+    <div class="chip active" data-filter="ALL">Tudo</div>
+    <div class="chip" data-filter="PUERPERIO">Puerpério/Amamentação</div>
+    <div class="chip" data-filter="PEDIATRIA">Pediatria</div>
+  </div>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="wrap">
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <!-- MODAL -->
+  <div class="modalBack" id="modalBack">
+    <div class="modal">
+      <div class="modalHeader">
+        <h3>Calculadoras rápidas</h3>
+        <button class="btnGhost" id="closeCalc" style="width:auto;margin-top:0">Fechar</button>
+      </div>
+
+      <div class="row2">
+        <div class="resultado">
+          <div class="destaque">1) Tempo por ponto (J)</div>
+          <label for="c1_power">Potência (mW)</label>
+          <input id="c1_power" type="number" min="1" value="100" />
+          <label for="c1_j">Dose (J)</label>
+          <input id="c1_j" type="number" step="0.1" value="2" />
+          <button id="c1_run">Calcular</button>
+          <div class="resultado" id="c1_out">Informe potência e Joules.</div>
+        </div>
+
+        <div class="resultado">
+          <div class="destaque">2) Varredura (J/cm²)</div>
+          <label for="c2_power">Potência (mW)</label>
+          <input id="c2_power" type="number" min="1" value="100" />
+          <label for="c2_jcm2">Dose (J/cm²)</label>
+          <input id="c2_jcm2" type="number" step="0.1" value="1" />
+          <label for="c2_area">Área (cm²)</label>
+          <input id="c2_area" type="number" step="0.1" value="6" />
+          <button id="c2_run">Calcular</button>
+          <div class="resultado" id="c2_out">Total J = (J/cm²) × área.</div>
+        </div>
+
+        <div class="resultado">
+          <div class="destaque">3) ILIB (peso/2 em min)</div>
+          <label for="c3_weight">Peso (kg)</label>
+          <input id="c3_weight" type="number" step="0.1" value="20" />
+          <button id="c3_run">Calcular</button>
+          <div class="resultado" id="c3_out">Ex.: 50 kg → 25 min.</div>
+        </div>
+
+        <div class="resultado">
+          <div class="destaque">Fórmulas</div>
+          <div>
+            <b>Tempo(s) = J × 1000 / mW</b><br/>
+            Energia(J) = Potência(W) × tempo(s) • W = mW/1000
+          </div>
+          <div class="resultado" style="border-left:4px solid var(--brand);">
+            Ajuste sempre a potência real do seu equipamento. O principal é entregar a dose planejada (J).
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Guia de apoio: não substitui avaliação clínica, treinamento e normas locais. Evitar olhos e tireoide. Usar óculos específicos do comprimento de onda.
+  </footer>
+
+<script>
+  function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
+
+  function timeFromJ(powerMw, j){
+    const p = Number(powerMw);
+    const J = Number(j);
+    if(!p || p <= 0 || !isFinite(p) || !isFinite(J)) return null;
+    const sec = (J * 1000) / p;
+    const min = sec / 60;
+    return {sec, min};
+  }
+
+  function fmtTime(t){
+    if(!t) return "—";
+    const sec = t.sec;
+    const min = t.min;
+    if(sec < 60) return `${sec.toFixed(0)} s`;
+    if(min < 10) return `${min.toFixed(1)} min (${sec.toFixed(0)} s)`;
+    return `${min.toFixed(0)} min`;
+  }
+
+  function extractJRanges(text){
+    const s = (text || "").replaceAll(",", ".").toLowerCase();
+    const out = [];
+    let m;
+    const reA = /(\d+(?:\.\d+)?)\s*(?:a|–|-)\s*(\d+(?:\.\d+)?)\s*j\b/g;
+    while((m = reA.exec(s)) !== null) out.push({min:Number(m[1]), max:Number(m[2])});
+    const reB = /(^|[^\d.])(\d+(?:\.\d+)?)\s*j\b/g;
+    while((m = reB.exec(s)) !== null){
+      const val = Number(m[2]);
+      const already = out.some(r => r.min === val && r.max === val);
+      if(!already) out.push({min:val, max:val});
+    }
+    return out;
+  }
+
+  function doseToTimeLabel(powerMw, doseStr){
+    const ranges = extractJRanges(doseStr);
+    if(!ranges.length) return null;
+    return ranges.map(r=>{
+      const tMin = timeFromJ(powerMw, r.min);
+      const tMax = timeFromJ(powerMw, r.max);
+      if(r.min === r.max) return `${r.min} J → ${fmtTime(tMin)}`;
+      return `${r.min}-${r.max} J → ${fmtTime(tMin)} a ${fmtTime(tMax)}`;
+    }).join(" • ");
+  }
+
+  // ===== Protocolos (mesmo conjunto completo que montamos) =====
+  const protocols = [
+    { id:"P2.1", area:"PUERPERIO", title:"2.1 Fissuras Mamilares e Dor na Amamentação",
+      tags:["mama","analgesia","cicatrização","linfonodos"],
+      params:["1–2 J (V) na aréola e mamilo","2 J (IV) ao redor (4 pontos)","3 J (IV) em linfonodos axilares, sub e supra claviculares"],
+      technique:"Pontual (varredura apenas se muita sensibilidade)", frequency:"A cada 24 h",
+      notes:["Melhora significativa em 24–48 h; resolução completa geralmente em 3–7 dias (conforme gravidade)."]
+    },
+    { id:"P2.2", area:"PUERPERIO", title:"2.2 Ingurgitamento Mamário (Leite Empedrado)",
+      tags:["mama","edema","inflamação","linfonodos"],
+      params:["3–6 J (IV) por ponto no trajeto do ingurgitamento (edema/inflamação)","3 J (IV) em linfonodos axilares, sub e supra claviculares"],
+      technique:"Pontual", frequency:"A cada 24 h", notes:["Geralmente 1–3 dias/sessões."]
+    },
+    { id:"P2.3", area:"PUERPERIO", title:"2.3 Ductos Obstruídos / Bloqueados",
+      tags:["mama","nódulo","drenagem","linfonodos"],
+      params:["3–4 J (IV) por ponto (aplicar altamente localizado no nódulo e área adjacente)","3 J (IV) em linfonodos axilares, sub e supra claviculares"],
+      technique:"Pontual", frequency:"A cada 24 h", notes:["Palpar para localizar o nódulo; aplicar diretamente e depois linfonodos."]
+    },
+    { id:"P2.4", area:"PUERPERIO", title:"2.4 Mastite",
+      tags:["mama","inflamação","dor","linfonodos"],
+      params:["3–6 J (IV) por ponto na área acometida","3 J (IV) em linfonodos axilares, sub e supra claviculares","Se houver supuração/contaminação: PDT (9 J, V)"],
+      technique:"Pontual", frequency:"A cada 24 h", notes:["Adjuvante em mastite infecciosa (junto com ATB/condutas)."]
+    },
+    { id:"P2.5", area:"PUERPERIO", title:"2.5 Candidíase Mamária",
+      tags:["mama","fungo","PDT","linfonodos"],
+      params:["PDT (9 J, V)","3–4 J (IV) por ponto no trajeto (edema/inflamação)","3 J (IV) em linfonodos axilares, sub e supra claviculares"],
+      technique:"Pontual ou varredura", frequency:"A cada 24 h", notes:["Tratar boca do bebê também é essencial."]
+    },
+    { id:"P2.6", area:"PUERPERIO", title:"2.6 Cicatriz de Episiotomia e Lacerações Perineais",
+      tags:["períneo","cicatrização","dor","PDT"],
+      params:["1–2 J (V) por ponto no local da lesão","2–3 J (IV) ao redor","3 J (IV) em linfonodos inguinais","Se houver infecção: PDT (9 J, V)"],
+      technique:"Pontual ou varredura (se desconforto)", frequency:"A cada 24 h", notes:[]
+    },
+    { id:"P2.7", area:"PUERPERIO", title:"2.7 Cicatriz de Cesariana (Pós-op imediato e tardio)",
+      tags:["cicatriz","abdome","remodelação","PDT"],
+      params:["1–2 J (V) por ponto no local da lesão","2–3 J (IV) ao redor","3 J (V) em linfonodos inguinais","Se houver infecção: PDT (9 J, V)"],
+      technique:"Pontual ou varredura (se desconforto)", frequency:"Imediato: diário 3–5 dias. Tardio: 2–3x/semana",
+      notes:["5–15 sessões ou mais (dor/queloide/fibrose)."]
+    },
+    { id:"P2.8", area:"PUERPERIO", title:"2.8 Hemorroidas e Fissuras Anais Pós-Parto",
+      tags:["anal","dor","edema","linfonodos"],
+      params:["3 J (IV) por ponto no local da lesão e ao redor","3 J (IV) em linfonodos inguinais"],
+      technique:"Pontual", frequency:"Agudo: diário 3–5 dias; depois 2–3x/semana", notes:[]
+    },
+    { id:"P2.9", area:"PUERPERIO", title:"2.9 Edema e Linfedema em Membros Inferiores",
+      tags:["MMII","linfático","edema","linfonodos"],
+      params:["3 J (IV) nos linfonodos inguinais, poplíteos, perimaleolares e áreas edemaciadas","Pode associar ILIB (peso/2 em minutos)"],
+      technique:"Pontual", frequency:"Diário ou dias alternados", notes:[]
+    },
+
+    { id:"PED2.1", area:"PEDIATRIA", title:"2.1 Gripes, Resfriados e Rinite",
+      tags:["nariz","ILIB","gânglios cervicais"],
+      params:["2 J na lateral da asa do nariz (IG20)","3 J em gânglios cervicais","2 J no polegar (P11)","ILIB intranasal (tempo: peso/2)","Se não permitir ILIB intranasal: 3–9 J na entrada das narinas + ILIB na artéria pediosa"],
+      technique:"Pontual", frequency:"Agudo: 24 h | Crônico: 2–3x/semana", notes:[]
+    },
+    { id:"PED2.2", area:"PEDIATRIA", title:"2.2 Sinusite",
+      tags:["seios da face","ILIB","gânglios cervicais"],
+      params:["3 J em gânglios cervicais (cada lado)","1–2 J por ponto nos seios da face (pontos espaçados a cada 1 cm²)","ILIB intranasal"],
+      technique:"Pontual", frequency:"Agudo: 24 h | Crônico: 2–3x/semana", notes:[]
+    },
+    { id:"PED2.3", area:"PEDIATRIA", title:"2.3 Laringite",
+      tags:["laringe","tireóide"],
+      params:["Aplicar os pontos de rinite (2.1) e adicionar:","2 J por ponto lateralmente à laringe (desviando da tireoide)"],
+      technique:"Pontual", frequency:"A cada 24 h inicialmente; reavaliar", notes:[]
+    },
+    { id:"PED2.4", area:"PEDIATRIA", title:"2.4 Amigdalite e Faringite",
+      tags:["oral","PDT","gânglios cervicais"],
+      params:["2 J em cada lado na cavidade oral","2 J de cada lado nos gânglios cervicais","Se houver contaminação: PDT"],
+      technique:"Pontual", frequency:"A cada 24 h inicialmente; reavaliar", notes:[]
+    },
+    { id:"PED2.5", area:"PEDIATRIA", title:"2.5 Otite",
+      tags:["ouvido","ILIB"],
+      params:["1–2 J por ponto em volta da orelha (3–4 pontos)","2–3 J no pavilhão auditivo","ILIB (tempo: peso/2)"],
+      technique:"Pontual", frequency:"A cada 24 h inicialmente; reavaliar", notes:[]
+    },
+    { id:"PED2.6", area:"PEDIATRIA", title:"2.6 Bronquiolite, Bronquite, Pneumonia e Asma",
+      tags:["tórax","ILIB","gânglios cervicais"],
+      params:["2 J na lateral da asa do nariz (IG20)","3 J em gânglios cervicais (cada lado)","ILIB intranasal","2 J no polegar (P11)","2 J por cm² na região acometida da caixa torácica"],
+      technique:"Pontual e/ou varredura (tórax por cm²)", frequency:"A cada 24 h inicialmente; reavaliar", notes:[]
+    },
+    { id:"PED3.1", area:"PEDIATRIA", title:"3.1 Dermatite",
+      tags:["pele","PDT","ILIB"],
+      params:["1–2 J por cm² em volta do local","Se houver infecção: PDT (Azul de Metileno + luz)","1 J por cm² no leito da lesão (quando indicado)","ILIB na braquial ou pediosa"],
+      technique:"Pontual/varredura", frequency:"Conforme evolução", notes:[]
+    },
+    { id:"PED3.2", area:"PEDIATRIA", title:"3.2 Queimadura",
+      tags:["pele","PDT"],
+      params:["1–2 J por cm² nas bordas da lesão","Se houver infecção: PDT (Azul de Metileno + luz)"],
+      technique:"Varredura/pontual", frequency:"Conforme evolução", notes:[]
+    },
+    { id:"PED3.3", area:"PEDIATRIA", title:"3.3 Assadura",
+      tags:["pele","períneo","fungo","PDT"],
+      params:["Pontual: 0,5–2 J por ponto","Varredura: calcular área (ex.: 6×1 J=6 J)","Se for por fungo: PDT (Azul de Metileno)"],
+      technique:"Pontual ou varredura", frequency:"Evolução boa: 48 h | Sem evolução: 24 h",
+      notes:["Suspender Cavilon 48 h antes. Ao término: pomada com Stomahesive; orientar pais."]
+    },
+    { id:"PED3.4", area:"PEDIATRIA", title:"3.4 Picada por Inseto",
+      tags:["pele"],
+      params:["1–2 J por ponto em volta da lesão","Se ferir: 1 J no centro da lesão"],
+      technique:"Pontual", frequency:"Conforme sintomas", notes:[]
+    },
+    { id:"PED3.5", area:"PEDIATRIA", title:"3.5 Coto Umbilical",
+      tags:["RN","cicatrização"],
+      params:["1 J nas bordas","1 J no centro"],
+      technique:"Pontual", frequency:"24/48 h (coto gelatinoso: mais frequente)", notes:["Mumificação: não aplicar sobre região escurecida."]
+    },
+    { id:"PED3.6", area:"PEDIATRIA", title:"3.6 Colostomia, Ileostomia e Gastrostomia",
+      tags:["estoma","PDT"],
+      params:["1 J no estoma","1 J por cm² ao redor","Se fungos/bactérias: PDT (Azul de Metileno)"],
+      technique:"Pontual + varredura ao redor", frequency:"Preferir nas trocas de bolsa", notes:["Avaliar inflamação."]
+    },
+    { id:"PED3.7", area:"PEDIATRIA", title:"3.7 Frenectomia",
+      tags:["cirurgia","oral","PDT"],
+      params:["1 J em ponto único","Se infecção: adicionar PDT (Azul de Metileno)"],
+      technique:"Pontual", frequency:"Conforme evolução", notes:[]
+    },
+    { id:"PED3.8", area:"PEDIATRIA", title:"3.8 Adenoamigdalectomia",
+      tags:["pós-op","narina","gânglios cervicais","oral"],
+      params:["2 J em cada narina","3 J nos gânglios cervicais","1 J na lateral da asa do nariz (IG20)","Amígdala (cavidade oral): 2 J em cada lado"],
+      technique:"Pontual", frequency:"Conforme pós-op", notes:["Se sangramento/reflexo de náusea importante: excluir pontos na cavidade oral."]
+    },
+    { id:"PED3.9", area:"PEDIATRIA", title:"3.9 Postectomia",
+      tags:["pós-op","urologia"],
+      params:["1 J pontual perpendicular na glande","1 J na incisão (varredura)"],
+      technique:"Pontual + varredura", frequency:"Conforme evolução", notes:[]
+    },
+    { id:"PED4.1", area:"PEDIATRIA", title:"4.1 Estomatite",
+      tags:["oral","PDT"],
+      params:["Técnica pontual: 2 J por ponto","Se infecção: PDT (Azul de Metileno) 5–9 J por ponto/sobre lesão"],
+      technique:"Pontual", frequency:"Conforme evolução", notes:[]
+    },
+    { id:"PED4.2", area:"PEDIATRIA", title:"4.2 Herpes Simples",
+      tags:["PDT","viral"],
+      params:["PDT sobre a lesão: Azul de Metileno + 5–9 J sobre a lesão"],
+      technique:"Pontual", frequency:"Conforme evolução", notes:[]
+    },
+    { id:"PED4.3", area:"PEDIATRIA", title:"4.3 Herpes Zoster",
+      tags:["PDT","dor","nervo"],
+      params:["PDT: 5–9 J por cm² (Azul de Metileno; pode romper bolhas)","Se prurido: 1 J em volta","Muita dor: 9 J (IV) no trajeto do nervo (pontos a cada 1 cm)"],
+      technique:"Pontual/varredura", frequency:"Conforme quadro", notes:[]
+    },
+    { id:"PED4.4", area:"PEDIATRIA", title:"4.4 Roséola, Molusco e Mão-Pé-Boca",
+      tags:["PDT","ILIB","viral"],
+      params:["PDT: 5–9 J por área (cm²) — pontual/varredura (Azul de Metileno)","ILIB na braquial ou pediosa","Mão-pé-boca: avaliar cavidade oral (amígdalas)"],
+      technique:"Pontual/varredura", frequency:"Conforme evolução", notes:[]
+    },
+    { id:"PED4.5", area:"PEDIATRIA", title:"4.5 Monilíase Oral",
+      tags:["PDT","fungo"],
+      params:["PDT: Azul de Metileno + 5–9 J por cm²"],
+      technique:"Pontual/varredura", frequency:"A cada 24/48 h", notes:[]
+    },
+    { id:"PED5.1", area:"PEDIATRIA", title:"5.1 TDAH / Autismo",
+      tags:["neuro","ILIB"],
+      params:["ILIB intranasal — tempo: peso/2","4–6 J por ponto em lobo frontal, temporal e occipital"],
+      technique:"Pontual", frequency:"Conforme planejamento", notes:[]
+    },
+    { id:"PED5.2", area:"PEDIATRIA", title:"5.2 Paralisia de Bell",
+      tags:["neuro","face"],
+      params:["4–7 J por ponto do lado afetado (onde não tem expressão facial)"],
+      technique:"Pontual", frequency:"Conforme evolução", notes:["Registros fotográficos recomendados."]
+    },
+    { id:"PED6", area:"PEDIATRIA", title:"6. Cefaleia",
+      tags:["dor","ILIB"],
+      params:["2–3 J por ponto na região da dor","Occipital: 2–3 J por ponto no trajeto do nervo","ILIB intranasal"],
+      technique:"Pontual", frequency:"A cada 24/48 h", notes:["Identificar causa/localização da dor."]
+    },
+    { id:"PED7", area:"PEDIATRIA", title:"7. Nova Dentição",
+      tags:["gengiva","bebê"],
+      params:["0,5–1 J por ponto direto na gengiva (geralmente 3 pontos/arcada)","Se não permitir cavidade oral: por fora, 1–2 J por ponto"],
+      technique:"Pontual", frequency:"Conforme sintomas", notes:[]
+    },
+    { id:"PED8.1", area:"PEDIATRIA", title:"8.1 Imunidade (Ciclos)",
+      tags:["imunidade"],
+      params:["1º ciclo: 10 sessões (2x/semana)","2º ciclo: 10 sessões (1x/semana)","3º ciclo: 10 sessões (1x/semana)","Intervalos 30–45 dias","Se início ruim: 3x/semana e reduzir"],
+      technique:"Plano em ciclos", frequency:"Conforme ciclos", notes:[]
+    },
+    { id:"PED8.2", area:"PEDIATRIA", title:"8.2 Imunidade — Pontos Auriculares",
+      tags:["imunidade","auricular"],
+      params:["Aplicar 1 J em cada ponto (SNV simpático, Pulmão, Shen Men, Hélix, Ping Chuang inferior, Erijan)"],
+      technique:"Pontual", frequency:"Conforme ciclos", notes:[]
+    },
+    { id:"PED8.3", area:"PEDIATRIA", title:"8.3 Imunidade — Pontos Faciais",
+      tags:["imunidade","face"],
+      params:["Aplicar 1 J em cada ponto (Yintang, B2, IG20)"],
+      technique:"Pontual", frequency:"Conforme ciclos", notes:[]
+    },
+    { id:"PED8.4", area:"PEDIATRIA", title:"8.4 Imunidade — Pontos Corporais",
+      tags:["imunidade","corpo"],
+      params:["Aplicar 1 J em cada ponto (P11, IG4, BP6, R3)","Aplicar 4 J no Timo"],
+      technique:"Pontual", frequency:"Conforme ciclos", notes:[]
+    },
+    { id:"PED8.5", area:"PEDIATRIA", title:"8.5 Imunidade — ILIB",
+      tags:["imunidade","ILIB"],
+      params:["ILIB: tempo = peso/2 (min)","Locais: artéria pediosa, radial, intranasal, sublingual (conforme preferência)"],
+      technique:"Conforme local escolhido", frequency:"Conforme ciclos", notes:[]
+    },
+  ];
+
+  const grid = document.getElementById("grid");
+  const stats = document.getElementById("stats");
+  const search = document.getElementById("search");
+  const powerMwInput = document.getElementById("powerMw");
+  const chips = document.getElementById("chips");
+  const modalBack = document.getElementById("modalBack");
+  let activeFilter = "ALL";
+
+  function matchesFilter(p){ return activeFilter === "ALL" ? true : p.area === activeFilter; }
+
+  function matchesQuery(p, q){
+    if(!q) return true;
+    const hay = [p.id,p.area,p.title,...(p.tags||[]),...(p.params||[]),p.technique||"",p.frequency||"",...(p.notes||[])].join(" ").toLowerCase();
+    return hay.includes(q.toLowerCase());
+  }
+
+  function render(){
+    const q = search.value.trim();
+    const powerMw = clamp(Number(powerMwInput.value || 100), 1, 50000);
+    const items = protocols.filter(matchesFilter).filter(p=>matchesQuery(p,q));
+
+    grid.innerHTML = "";
+    stats.textContent = `${items.length} protocolo(s) encontrado(s).`;
+
+    if(!items.length){
+      const empty = document.createElement("div");
+      empty.className = "card";
+      empty.style.gridColumn = "1 / -1";
+      empty.innerHTML = `<div class="sub">Nada encontrado. Tente: “PDT”, “linfonodos”, “narina”, “gengiva”, “tórax”.</div>`;
+      grid.appendChild(empty);
+      return;
+    }
+
+    items.forEach(p=>{
+      const card = document.createElement("div");
+      card.className = "card";
+
+      const timeHints = (p.params||[])
+        .map(line => {
+          const hint = doseToTimeLabel(powerMw, line);
+          return hint ? `<span class="badge">Tempo: ${hint}</span>` : "";
+        })
+        .filter(Boolean)
+        .slice(0, 4)
+        .join("");
+
+      card.innerHTML = `
+        <h3>${p.title}</h3>
+        <div class="badges">
+          <span class="badge">${p.area === "PUERPERIO" ? "Puerpério/Amamentação" : "Pediatria"}</span>
+          <span class="badge">Potência: ${powerMw} mW</span>
+          <span class="badge">ID: ${p.id}</span>
+          ${(p.tags||[]).slice(0,6).map(t=>`<span class="badge">${t}</span>`).join("")}
+          ${timeHints}
+        </div>
+
+        <details>
+          <summary>Ver detalhes</summary>
+          <div class="resultado">
+            <div class="destaque">Parâmetros</div>
+            <ul>${(p.params||[]).map(x=>`<li>${x}</li>`).join("")}</ul>
+
+            <div style="margin-top:12px">
+              <div class="destaque">Técnica</div>
+              <div>${p.technique || "—"}</div>
+            </div>
+
+            <div style="margin-top:12px">
+              <div class="destaque">Frequência</div>
+              <div>${p.frequency || "—"}</div>
+            </div>
+
+            ${(p.notes||[]).length ? `
+              <div style="margin-top:12px">
+                <div class="destaque">Observações</div>
+                <div>${p.notes.join(" • ")}</div>
+              </div>
+            ` : ""}
+          </div>
+        </details>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  search.addEventListener("input", render);
+  powerMwInput.addEventListener("input", render);
+
+  chips.addEventListener("click", (e)=>{
+    const el = e.target.closest(".chip");
+    if(!el) return;
+    activeFilter = el.dataset.filter;
+    [...chips.querySelectorAll(".chip")].forEach(c => c.classList.toggle("active", c === el));
+    render();
+  });
+
+  document.getElementById("expandAll").addEventListener("click", ()=>{ document.querySelectorAll("details").forEach(d=>d.open=true); });
+  document.getElementById("collapseAll").addEventListener("click", ()=>{ document.querySelectorAll("details").forEach(d=>d.open=false); });
+
+  document.getElementById("openCalc").addEventListener("click", ()=>{
+    document.getElementById("c1_power").value = powerMwInput.value || 100;
+    document.getElementById("c2_power").value = powerMwInput.value || 100;
+    modalBack.style.display = "flex";
+  });
+  document.getElementById("closeCalc").addEventListener("click", ()=> modalBack.style.display = "none");
+  modalBack.addEventListener("click", (e)=>{ if(e.target === modalBack) modalBack.style.display="none"; });
+
+  document.getElementById("c1_run").addEventListener("click", ()=>{
+    const p = Number(document.getElementById("c1_power").value);
+    const j = Number(document.getElementById("c1_j").value);
+    const t = timeFromJ(p, j);
+    document.getElementById("c1_out").textContent = t ? `Tempo: ${fmtTime(t)}` : `Preencha valores válidos.`;
+  });
+
+  document.getElementById("c2_run").addEventListener("click", ()=>{
+    const p = Number(document.getElementById("c2_power").value);
+    const jcm2 = Number(document.getElementById("c2_jcm2").value);
+    const area = Number(document.getElementById("c2_area").value);
+    if(!p || p<=0 || !isFinite(p) || !isFinite(jcm2) || !isFinite(area) || area<=0){
+      document.getElementById("c2_out").textContent = "Preencha valores válidos.";
+      return;
+    }
+    const totalJ = jcm2 * area;
+    const t = timeFromJ(p, totalJ);
+    document.getElementById("c2_out").textContent = `Total: ${totalJ.toFixed(2)} J | Tempo: ${fmtTime(t)}`;
+  });
+
+  document.getElementById("c3_run").addEventListener("click", ()=>{
+    const w = Number(document.getElementById("c3_weight").value);
+    if(!w || w<=0 || !isFinite(w)){
+      document.getElementById("c3_out").textContent = "Informe um peso válido.";
+      return;
+    }
+    document.getElementById("c3_out").textContent = `ILIB: ${(w/2).toFixed(1)} min (peso/2)`;
+  });
+
+  render();
+</script>
+</body>
+</html>
